@@ -57,9 +57,7 @@ echo "deb https://packagecloud.io/danderson/pixiecore/debian stretch main" >/etc
     curl \
     vim \
     nano \
-    less && 
-yes y | apt-get update -o Acquire::AllowInsecureRepositories=true
-yes |  apt-get install pixiecore
+    less && apt-get update -o Acquire::AllowInsecureRepositories=true && apt-get install pixiecore -y
 
     # purge
     apt-get purge -y \
