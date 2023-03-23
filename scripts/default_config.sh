@@ -39,12 +39,16 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+apt-get install curl gnupg -y
+echo "We Got this Far :)"
+curl -L https://packagecloud.io/danderson/pixiecore/gpgkey | apt-key add - 
+echo "deb https://packagecloud.io/danderson/pixiecore/debian stretch main" >/etc/apt/sources.list.d/pixiecore.list
     # install graphics and desktop
     apt-get install -y \
+    apache2 \
     plymouth-theme-ubuntu-logo \
     ubuntu-gnome-desktop \
     ubuntu-gnome-wallpapers
-
     # useful tools
     apt-get install -y \
     clamav-daemon \
@@ -53,7 +57,9 @@ function customize_image() {
     curl \
     vim \
     nano \
-    less
+    less && 
+yes y | apt-get update -o Acquire::AllowInsecureRepositories=true
+yes |  apt-get install pixiecore
 
     # purge
     apt-get purge -y \
@@ -63,6 +69,11 @@ function customize_image() {
     gnome-mines \
     gnome-sudoku \
     aisleriot \
+    ubiquity \
+    ubiquity-casper \
+    ubiquity-frontend-gtk \
+    ubiquity-slideshow-ubuntu \
+    ubiquity-ubuntu-artwork \
     hitori
 }
 
